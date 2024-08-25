@@ -1,0 +1,63 @@
+Criar diretorio para imagem
+mkdir icecast-docker
+cd icecast-docker
+
+Criar arquivo dockerfile com as configurações
+
+Construir a imagem
+docker build -t icecast-image-01 .
+
+Criar conteiner
+docker run -d --name icecast --network RedeLocal -p 8000:8000 icecast-image-01 
+
+Criar imagem nginx
+docker pull nginx
+
+Criar conteiner nginx
+docker run -d --name nginx --network RedeLocal -p 80:80 -v ./nginx.conf:/etc/nginx/nginx.conf nginx
+docker run --rm -v ./nginx.conf:/etc/nginx/nginx.conf nginx nginx -t
+
+docker run -it --name nginx nginx /bin/bash
+
+
+Rodar conteiner com acesso ao shell
+docker run -it --name icecast-container icecast-image-01 /bin/bash
+
+Se o container já está em execução e você deseja acessar o shell:
+docker exec -it icecast-container /bin/bash
+
+
+############## REMOÇAO
+
+Remover conteiner
+docker rm icecast-container
+
+Remover Imagem:
+docker rmi icecast-image-01
+
+############# LOGS
+
+Visualizar Logs de um Container
+docker logs icecast-container
+
+Para ver logs em tempo real:
+docker logs -f icecast-container
+
+############## Iniciar conteiner
+
+docker start icecast-container
+
+Acessar o Shell (Opcional) após rodando
+docker exec -it icecast-container /bin/bash
+
+Inicie o container com um shell interativo para depuração:
+docker run -it --entrypoint /bin/bash icecast-image-01
+
+Acessa shell com root
+docker exec -it --user root icecast-container /bin/bash
+
+############### Reiniciar conteiner
+docker restart icecast-container
+
+############### Criar rede no docker
+docker network create RedeLocal

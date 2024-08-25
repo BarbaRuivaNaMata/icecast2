@@ -8,3 +8,5 @@ apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docke
 chmod +x install.sh
 
 3 - execute o script de instalação.
+
+4 - Em rascunhos.txt tem a lista de comandos que utilizei durante o processo de estudo
